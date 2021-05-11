@@ -64,10 +64,10 @@ Error line {line+add1toline}:
 
 def checkParams(line: int, op: str, oparg: List[str], minops: int=-1, maxops: int=-1) -> bool:
     if len(oparg) > maxops and maxops != -1:
-        showError(line=line, op=op, oparg=oparg, errorparamnum=range(2, len(oparg)-1), message=f"Too many params")
+        showError(line=line, op=op, params=oparg, errorparamnum=range(2, len(oparg)-1), message=f"Too many params")
         return False
     elif len(oparg) < minops and minops != -1:
-        showError(line=line, op=op, oparg=oparg, errorparamnum=range(2, len(oparg)-1), message=f"Too few params")
+        showError(line=line, op=op, params=oparg, errorparamnum=None, message=f"Too few params")
         return False
     
     return True
