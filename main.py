@@ -19,6 +19,9 @@ op_set.init(ops)
 memory = [0]*4
 
 file = open(sys.argv[1], "r")
+
+code = file.read()
+
 lines = file.readlines()
 
 line = 0
@@ -28,7 +31,7 @@ try:
     while line < len(lines):
         args = shlex.split(lines[line], posix=False)
 
-        if len(args) > 0:
+        if len(args) > 0 or line.strip(" ").startswith([";", "#", "//"]):
             op = args.pop(0)
 
             op_func = ops[op]

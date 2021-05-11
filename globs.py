@@ -36,9 +36,7 @@ def showError(line: int=0, op: str="", params: str=[], errorparamnum: Union[Iter
     if type(errorparamnum) == int or iter(errorparamnum):
         errorparamnum = list(errorparamnum)
 
-        err = f"""
-Error line {line+add1toline}:
-    {op} """.strip("\n")
+        err = f"""Error line {line+add1toline}:\n    {op} """
 
         itercnt = 0
         for i in params:
@@ -60,7 +58,7 @@ Error line {line+add1toline}:
 
 def checkParams(line: int, op: str, oparg: List[str], minops: int=-1, maxops: int=-1) -> bool:
     if len(oparg) > maxops and maxops != -1:
-        showError(line=line, op=op, params=oparg, errorparamnum=range(2, len(oparg)), message=f"Too many params")
+        showError(line=line, op=op, params=oparg, errorparamnum=range(minops, len(oparg)), message=f"Too many params")
         return False
     elif len(oparg) < minops and minops != -1:
         showError(line=line, op=op, params=oparg, errorparamnum=None, message=f"Too few params")
