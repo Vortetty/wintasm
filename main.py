@@ -37,6 +37,9 @@ lines = code.split("\n")
 
 line = 0
 
+f = open(sys.argv[1] + ".preprocessed", "w")
+f.write(code)
+f.close 
 
 try:
     while line < len(lines):
