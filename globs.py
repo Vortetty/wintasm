@@ -44,6 +44,8 @@ Error line {line+add1toline}:
         for i in params:
             err += f""" {fg("red")}{attr('underlined')}{i}{attr("reset")}""" if itercnt in errorparamnum else f" {i}"
 
+        err += f"\n\n{message}"
+
         print(err)
 
     else:
