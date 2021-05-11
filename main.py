@@ -28,8 +28,7 @@ commentsTMP = re.findall(r"""((;|\#|//)(?=([^"]*"[^"]*")*[^"]*$).*|/\*(?=([^"]*"
 comments = []
 
 for commentList in commentsTMP:
-    for i in commentList:
-        print(comment)
+    for comment in commentList:
         tmp = ";" + comment.replace("\n", "\n;")[:-1]
         code.replace(comment, tmp)
 
