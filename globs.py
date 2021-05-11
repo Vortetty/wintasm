@@ -35,6 +35,8 @@ def showError(line: int=0, op: str="", params: str=[], errorparamnum: Union[Iter
     params.append(" ")
 
     if iter(errorparamnum):
+        errorparamnum = list(errorparamnum)
+
         print(
             f"""
 Error line {line+add1toline}:
