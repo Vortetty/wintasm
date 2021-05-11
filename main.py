@@ -30,7 +30,8 @@ comments = []
 for commentList in commentsTMP:
     for comment in commentList:
         tmp = ";" + comment.replace("\n", "\n;")[:-1]
-        code.replace(comment, tmp)
+        #print(repr(comment), "->", repr(tmp))
+        code = code.replace(comment, tmp)
 
 lines = code.split("\n")
 
