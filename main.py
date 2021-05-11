@@ -1,28 +1,19 @@
 from globs import *
-print("globs")
 import sys
-print("sys")
 from typing import List, Dict, Callable
-print("typing")
 import shlex
-print("shlex")
 
 from ops import op_set
 #from ops import op_xor
 #from ops import op_jmpif
-print("ops")
 
 ops: Dict[str, Callable[[List[int], int, int, str, List[str]], None]] = {
     "nop": lambda *x: print("Nop called")
 }
 
-print("Imported")
-
 op_set.init(ops)
 #op_xor.init(ops)
 #op_jmpif.init(ops)
-
-print("inited")
 
 memory = [0]*4
 
@@ -31,11 +22,7 @@ lines = file.readlines()
 
 line = 0
 
-print("opened and read")
-
 while line < len(lines):
-    print(line)
-
     args = shlex.split(lines[line], posix=False)
 
     if len(args) > 0:
