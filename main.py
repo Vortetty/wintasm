@@ -8,7 +8,7 @@ from ops import op_set
 #from ops import op_jmpif
 
 ops: Dict[str, Callable[[List[int], int, int, str, List[str]], None]] = {
-    "nop": lambda *x: print("Nop called")
+    "nop": lambda *x: None
 }
 
 op_set.init(ops)
@@ -34,4 +34,6 @@ while line < len(lines):
     else:
         pass
 
-    print(memory)
+    line += 1
+
+print(memory)
