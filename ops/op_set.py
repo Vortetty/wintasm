@@ -26,7 +26,7 @@ def op_set(mem: List[int], maxmem: int, line: int, op: str, oparg: List[str]):
         if getType(oparg[0]) == types.MEM_LOC:
             tmp = int(oparg[0].replace("m", "x"), 0)
             if tmp < maxmem and tmp >= 0:
-                loc = mem[tmp]
+                loc = tmp
             else:
                 showError(line, op, oparg, 0, f"Memory location \"{oparg[0]}\" is out of bounds")
         else:
