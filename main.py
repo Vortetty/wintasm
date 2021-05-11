@@ -22,18 +22,22 @@ lines = file.readlines()
 
 line = 0
 
-while line < len(lines):
-    args = shlex.split(lines[line], posix=False)
 
-    if len(args) > 0:
-        op = args.pop(0)
+try:
+    while line < len(lines):
+        args = shlex.split(lines[line], posix=False)
 
-        op_func = ops[op]
+        if len(args) > 0:
+            op = args.pop(0)
 
-        result = op_func(memory, len(memory), line, op, args)
-    else:
-        pass
+            op_func = ops[op]
 
-    line += 1
+            result = op_func(memory, len(memory), line, op, args)
+        else:
+            pass
+
+        line += 1
+except:
+    pass
 
 print(memory)
