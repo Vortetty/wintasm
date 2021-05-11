@@ -23,15 +23,17 @@ file = open(sys.argv[1], "r")
 
 # Read in file, remove comments, then split code into lines
 code = file.read()
-commentsTMP = re.findall(r"""((;|\#|//)(?=([^"]*"[^"]*")*[^"]*$).*|/\*(?=([^"]*"[^"]*")*[^"]*$)(.|\n)*?\*/(?=([^"]*"[^"]*")*[^"]*$))""", code)
+code = re.sub(r""".*(;|\#|//)(?=([^"]*"[^"]*")*[^"]*$).*""", "", code)
+commentsTMP = re.findall(r"""|/\*(?=([^"]*"[^"]*")*[^"]*$)(.|\n)*?\*/(?=([^"]*"[^"]*")*[^"]*$)""", code)
 
 comments = []
 
 for commentList in commentsTMP:
     for comment in commentList:
-        tmp = ";" + comment.replace("\n", "\n;")[:-1]
-        #print(repr(comment), "->", repr(tmp))
-        code = code.replace(comment, tmp)
+        if comment != "" and comment != "\n":
+            tmp = ";" + comment.replace("\n", "\n;")[:-1]
+            #print(repr(comment), "->", repr(tmp))
+            code = code.replace(comment, tmp)
 
 lines = code.split("\n")
 
@@ -45,7 +47,7 @@ try:
     while line < len(lines):
         args = shlex.split(lines[line], posix=False)
 
-        if len(args) > 0 or line.startswith([";"]):
+        if len(args) > 0 and not line.strip(" ").startswith([";"]):
             op = args.pop(0)
 
             op_func = ops[op]
