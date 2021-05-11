@@ -1,0 +1,35 @@
+= WintASM =
+
+== Commands ==
+
+=== NOP ===
+
+A simple no operation
+
+<pre class="arm">nop</pre>
+=== SET ===
+
+Set a location in memory
+
+<pre class="arm">xor &lt;value 1&gt; &lt;value 2&gt; &lt;output memory location&gt;</pre>
+=== XOR ===
+
+XOR a value with another and store the result
+
+<pre class="arm">xor &lt;value 1&gt; &lt;value 2&gt; &lt;output memory location&gt;</pre>
+=== JMPIF ===
+
+Jump if, valid operators are as follows
+
+* Equal to (<code>==</code>)
+* Not equal to (<code>!=</code>)
+* Greater than (<code>&gt;</code>)
+* Less than (<code>&lt;</code>)
+* Greater than or Equal to (<code>&gt;=</code>)
+* Less than or Equal to (<code>&lt;=</code>)
+
+<pre class="arm">jmpif &lt;value 1&gt; &lt;operator&gt; &lt;value 2&gt; &lt;line number to jump to&gt;</pre>
+== Notes for contributors ==
+
+* Make sure to convert this to a mediawiki format using [https://github.com/jgm/pandoc/releases/ pandoc] by running <code>pandoc -w mediawiki readme.md -o readme.wiki</code>
+* Update the page on [https://esolangs.ord esolangs.org]
