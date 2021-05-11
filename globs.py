@@ -1,9 +1,8 @@
 from operator import eq
 from typing import Any, Callable
-from enum import Enum
 from colored import fg, bg, attr
 
-class typesClass(Enum):
+class typesClass():
     def __init__(self):
         self.MEM_LOC = 0
         self.HEX_INT = 1
@@ -12,6 +11,8 @@ class typesClass(Enum):
         self.STR = 4
 
         self.INT_TYPES = [1, 2, 3]
+
+types = typesClass()
 
 
 def switch(value: Any, comp: Callable[[Any, Any], bool]=eq) -> Callable[[Any], bool]:
