@@ -12,9 +12,13 @@ ops: Dict[str, Callable[[List[int], int, int, str, List[str]], None]] = {
     "nop": lambda *x: print("Nop called")
 }
 
+print("Imported")
+
 op_set.init(ops)
 #op_xor.init(ops)
 #op_jmpif.init(ops)
+
+print("inited")
 
 memory = [0]*4
 
@@ -22,6 +26,8 @@ file = open(sys.argv[1], "r")
 lines = file.readlines()
 
 line = 0
+
+print("opened and read")
 
 while line < len(lines):
     print(line)
