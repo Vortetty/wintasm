@@ -2,6 +2,7 @@ from globs import *
 import sys
 from typing import List, Dict, Callable
 import shlex
+import traceback
 
 from ops import op_set
 #from ops import op_xor
@@ -37,7 +38,7 @@ try:
             pass
 
         line += 1
-except BaseException as e:
-    print(e)
+except BaseException as exception:
+    print(''.join(traceback.format_exception(type(exception), exception, exception.__traceback__)))
 
 print(memory)
