@@ -3,6 +3,7 @@ import sys
 from typing import List, Dict, Callable
 import shlex
 import traceback
+import re
 
 from ops import op_set
 #from ops import op_xor
@@ -20,9 +21,10 @@ memory = [0]*4
 
 file = open(sys.argv[1], "r")
 
+# Read in file, remove comments, then split code into lines
 code = file.read()
-
-lines = file.readlines()
+code = re.sub(r"""((;|\#|//)(?=([^"]*"[^"]*")*[^"]*$).*|/\*(?=([^"]*"[^"]*")*[^"]*$)(.|\n)*?\*/(?=([^"]*"[^"]*")*[^"]*$))""", "", code)
+lines = code.split("\n")
 
 line = 0
 
