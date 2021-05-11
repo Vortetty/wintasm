@@ -11,7 +11,7 @@ A simple no operation
 
 Set a location in memory
 
-<pre class="arm">xor &lt;value 1&gt; &lt;value 2&gt; &lt;output memory location&gt;</pre>
+<pre class="arm">xor &lt;value 1&gt; &lt;output memory location&gt;</pre>
 === XOR ===
 
 XOR a value with another and store the result
