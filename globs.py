@@ -42,7 +42,9 @@ Error line {line+add1toline}:
 
         itercnt = 0
         for i in params:
-            err += f"""{fg("red")}{attr('underlined')}{i}{attr("reset")}""" if itercnt in errorparamnum else i
+            err += f""" {fg("red")}{attr('underlined')}{i}{attr("reset")}""" if itercnt in errorparamnum else f" {i}"
+
+        print(err)
 
     else:
         print(
