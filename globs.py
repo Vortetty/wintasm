@@ -1,5 +1,6 @@
+from _typeshed import NoneType
 from operator import eq
-from typing import Any, Callable
+from typing import Any, Callable, Union
 from colored import fg, bg, attr
 
 class typesClass():
@@ -14,11 +15,10 @@ class typesClass():
 
 types = typesClass()
 
-
 def switch(value: Any, comp: Callable[[Any, Any], bool]=eq) -> Callable[[Any], bool]:
     return [lambda match: comp(match, value)]
 
-def getType(val: str):
+def getType(val: str) -> int:
     for case in switch(val, lambda x, y:y.startswith(x)):
         if case("0m"):
             return types.MEM_LOC
@@ -32,15 +32,23 @@ def getType(val: str):
             else:
                 return types.STR
 
-def showError(line, op, params, paramnum, message):
+def showError(line: int, op: str, params: str, errorparamnum: Union[int, None]=None, message: str="No message provided", add1toline: bool=True):
     params.append(" ")
 
-    print(
-        f"""
-Error line {line}:
-    {op} {params[:paramnum]} {fg("red")}{attr('underlined')}{params[paramnum]}{attr("reset")} {" ".join(params[paramnum+1:])}
+    if errorparamnum != None:
+        print(
+            f"""
+Error line {line+add1toline}:
+    {op} {" ".join(params[:errorparamnum])} {fg("red")}{attr('underlined')}{params[errorparamnum]}{attr("reset")} {" ".join(params[errorparamnum+1:])}
 
-{message}
-        """.strip("\n")
-    )
+{message}""".strip("\n")
+        )
+    else:
+        print(
+            f"""
+Error line {line+add1toline}:
+    {op} {" ".join(params)}
+
+{message}""".strip("\n")
+        )
     exit()

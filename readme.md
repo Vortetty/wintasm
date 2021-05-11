@@ -1,12 +1,12 @@
 # WintASM
 
-
 ## Basics
 
 - Memory locations are defined with a hex number after `0m`, an example for memory location 255 is `0mff`
 - Integers can be defined with the prefix `0b` for binary, `0x` for hex, or none for decimal
 - Char strings can be defined with `"` or `'` before and after the text
 - Values can be memory locations, or ints
+- 
 
 ## Commands
 
