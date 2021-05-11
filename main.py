@@ -40,6 +40,6 @@ try:
         line += 1
 except BaseException as exception:
     if type(exception) != SystemExit:
-        print("Please report the following exception on the github:\n    ", "".join(traceback.format_exception(type(exception), exception, exception.__traceback__).replace("\n", "\n    ")))
+        print("Please report the following exception on the github:\n   ", "".join(traceback.format_exception(type(exception), exception, exception.__traceback__).replace("\n", "\n    ")))
 
 print(memory)
