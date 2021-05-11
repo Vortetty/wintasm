@@ -3,14 +3,15 @@ from typing import Any, Callable
 from enum import Enum
 from colored import fg, bg, attr
 
-class types(Enum):
-    MEM_LOC = 0
-    HEX_INT = 1
-    BIN_INT = 2
-    DEC_INT = 3
-    STR = 4
+class typesClass(Enum):
+    def __init__(self):
+        self.MEM_LOC = 0
+        self.HEX_INT = 1
+        self.BIN_INT = 2
+        self.DEC_INT = 3
+        self.STR = 4
 
-    INT_TYPES = [1, 2, 3]
+        self.INT_TYPES = [1, 2, 3]
 
 
 def switch(value: Any, comp: Callable[[Any, Any], bool]=eq) -> Callable[[Any], bool]:
