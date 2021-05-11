@@ -23,9 +23,9 @@ file = open(sys.argv[1], "r")
 
 # Read in file, remove comments, then split code into lines
 code = file.read()
-code = re.sub(r"""(;|\#|//)(?<.*)(?=([^"]*"[^"]*")*[^"]*$).*""", "", code)
+code = re.sub(r"""(;|\#|//)(?<=.*)(?=([^"]*"[^"]*")*[^"]*$).*""", "", code)
 
-commentsTMP = re.findall(r"""|/\*(?=([^"]*"[^"]*")*[^"]*$)(.|\n)*?\*/(?=([^"]*"[^"]*")*[^"]*$)""", code)
+commentsTMP = re.findall(r"""/\*(?=([^"]*"[^"]*")*[^"]*$)(.|\n)*?\*/(?=([^"]*"[^"]*")*[^"]*$)""", code)
 
 comments = []
 
