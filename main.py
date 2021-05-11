@@ -1,12 +1,16 @@
 from globs import *
+print("globs")
 import sys
-from array import array
+print("sys")
 from typing import List, Dict, Callable
+print("typing")
 import shlex
+print("shlex")
 
 from ops import op_set
 #from ops import op_xor
 #from ops import op_jmpif
+print("ops")
 
 ops: Dict[str, Callable[[List[int], int, int, str, List[str]], None]] = {
     "nop": lambda *x: print("Nop called")
