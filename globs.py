@@ -33,26 +33,16 @@ def getType(val: str) -> int:
 
 def showError(line: int=0, op: str="", params: str=[], errorparamnum: Union[Iterable[int], int, None]=None, message: str="No message provided", add1toline: bool=True):
     params.append(" ")
-
-    if iter(errorparamnum):
+    if type(errorparamnum) == int or iter(errorparamnum):
         errorparamnum = list(errorparamnum)
 
-        print(
-            f"""
+        err = f"""
 Error line {line+add1toline}:
-    {op} {" ".join(params[:errorparamnum])} {fg("red")}{attr('underlined')}{params[errorparamnum:]}{attr("reset")}
+    {op} """.strip("\n")
 
-{message}""".strip("\n")
-        )
-
-    if type(errorparamnum) == int:
-        print(
-            f"""
-Error line {line+add1toline}:
-    {op} {" ".join(params[:errorparamnum])} {fg("red")}{attr('underlined')}{params[errorparamnum]}{attr("reset")} {" ".join(params[errorparamnum+1:])}
-
-{message}""".strip("\n")
-        )
+        itercnt = 0
+        for i in params:
+            err += f"""{fg("red")}{attr('underlined')}{i}{attr("reset")}""" if itercnt in errorparamnum else i
 
     else:
         print(
