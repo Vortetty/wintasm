@@ -6,7 +6,6 @@
 - Integers can be defined with the prefix `0b` for binary, `0x` for hex, or none for decimal
 - Char strings can be defined with `"` or `'` before and after the text
 - Values can be memory locations, or ints
-- 
 
 ## Commands
 

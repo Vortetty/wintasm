@@ -1,9 +1,12 @@
+from os import error
 from globs import *
 from typing import List, Dict, Callable
 from array import array
 from colored import fg, bg, attr
 
 def op_set(mem: List[int], maxmem: int, line: int, op: str, oparg: List[str]):
+    checkParams(line, op, oparg, 2, 2)
+
     if getType(oparg[0]) == types.MEM_LOC:
         val = 0
         loc = 0

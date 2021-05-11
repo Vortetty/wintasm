@@ -1,6 +1,5 @@
-from _typeshed import NoneType
 from operator import eq
-from typing import Any, Callable, Union
+from typing import Any, Callable, Union, Iterable, List
 from colored import fg, bg, attr
 
 class typesClass():
@@ -32,10 +31,19 @@ def getType(val: str) -> int:
             else:
                 return types.STR
 
-def showError(line: int, op: str, params: str, errorparamnum: Union[int, None]=None, message: str="No message provided", add1toline: bool=True):
+def showError(line: int=0, op: str="", params: str=[], errorparamnum: Union[Iterable[int], int, None]=None, message: str="No message provided", add1toline: bool=True):
     params.append(" ")
 
-    if errorparamnum != None:
+    if errorparamnum == Iterable[int]:
+        print(
+            f"""
+Error line {line+add1toline}:
+    {op} {" ".join(params[:errorparamnum])} {fg("red")}{attr('underlined')}{params[errorparamnum:]}{attr("reset")}
+
+{message}""".strip("\n")
+        )
+
+    if type(errorparamnum) == int:
         print(
             f"""
 Error line {line+add1toline}:
@@ -43,6 +51,7 @@ Error line {line+add1toline}:
 
 {message}""".strip("\n")
         )
+
     else:
         print(
             f"""
@@ -52,3 +61,13 @@ Error line {line+add1toline}:
 {message}""".strip("\n")
         )
     exit()
+
+def checkParams(line: int, op: str, oparg: List[str], minops: int=-1, maxops: int=-1) -> bool:
+    if len(oparg) > maxops and maxops != -1:
+        showError(line=line, op=op, oparg=oparg, errorparamnum=range(2, len(oparg)-1), message=f"Too many params")
+        return False
+    elif len(oparg) < minops and minops != -1:
+        showError(line=line, op=op, oparg=oparg, errorparamnum=range(2, len(oparg)-1), message=f"Too few params")
+        return False
+    
+    return True

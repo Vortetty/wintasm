@@ -37,7 +37,7 @@ try:
             pass
 
         line += 1
-except:
-    pass
+except BaseException as e:
+    print(e)
 
 print(memory)
