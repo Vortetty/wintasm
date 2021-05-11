@@ -4,6 +4,8 @@ from array import array
 from colored import fg, bg, attr
 
 def op_set(mem: List[int], maxmem: int, line: int, op: str, oparg: List[str]):
+    print("op_set called")
+
     if getType(oparg[0]) == types.MEM_LOC:
         val = 0
         loc = 0
