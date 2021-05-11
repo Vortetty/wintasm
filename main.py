@@ -24,6 +24,8 @@ lines = file.readlines()
 line = 0
 
 while line < len(lines):
+    print(line)
+
     args = shlex.split(lines[line], posix=False)
 
     if len(args) > 0:
