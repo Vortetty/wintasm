@@ -23,7 +23,8 @@ file = open(sys.argv[1], "r")
 
 # Read in file, remove comments, then split code into lines
 code = file.read()
-code = re.sub(r""".*(;|\#|//)(?=([^"]*"[^"]*")*[^"]*$).*""", "", code)
+code = re.sub(r"""(;|\#|//)(?<.*)(?=([^"]*"[^"]*")*[^"]*$).*""", "", code)
+
 commentsTMP = re.findall(r"""|/\*(?=([^"]*"[^"]*")*[^"]*$)(.|\n)*?\*/(?=([^"]*"[^"]*")*[^"]*$)""", code)
 
 comments = []
@@ -47,7 +48,7 @@ try:
     while line < len(lines):
         args = shlex.split(lines[line], posix=False)
 
-        if len(args) > 0 and not line.strip(" ").startswith([";"]):
+        if len(args) > 0 and not lines[line].strip(" ").startswith(";"):
             op = args.pop(0)
 
             op_func = ops[op]
