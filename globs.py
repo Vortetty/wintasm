@@ -34,7 +34,7 @@ def getType(val: str) -> int:
 def showError(line: int=0, op: str="", params: str=[], errorparamnum: Union[Iterable[int], int, None]=None, message: str="No message provided", add1toline: bool=True):
     params.append(" ")
 
-    if errorparamnum == Iterable[int]:
+    if iter(errorparamnum):
         print(
             f"""
 Error line {line+add1toline}:
@@ -64,7 +64,7 @@ Error line {line+add1toline}:
 
 def checkParams(line: int, op: str, oparg: List[str], minops: int=-1, maxops: int=-1) -> bool:
     if len(oparg) > maxops and maxops != -1:
-        showError(line=line, op=op, params=oparg, errorparamnum=list(range(2, len(oparg)-1)), message=f"Too many params")
+        showError(line=line, op=op, params=oparg, errorparamnum=range(2, len(oparg)), message=f"Too many params")
         return False
     elif len(oparg) < minops and minops != -1:
         showError(line=line, op=op, params=oparg, errorparamnum=None, message=f"Too few params")
