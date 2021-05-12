@@ -24,4 +24,3 @@ xor 0m2 0m3 0m3 ; xor memory 2 and 3 into memory 3
 jmpif 0m3 != 1 22 ; should jump to the previous xor once
 
 set 0m4 0x1 0x1 0x1 ; create an error by to many args
-jmpif <value 1> <operator> <value 2> <line number to jump to>
