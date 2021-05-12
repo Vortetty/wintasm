@@ -2,6 +2,7 @@ from typing import Any, Callable, Union, Iterable, List
 from colored import fg, bg, attr
 import operator
 
+# Type enum thing, not a real enum but works as one
 class typesClass():
     def __init__(self):
         self.MEM_LOC = 0
@@ -16,6 +17,7 @@ class typesClass():
 
 types = typesClass()
 
+# Makes it so commands can change the line
 class lineCounter():
     def __init__(self):
         self.line = 0
@@ -23,6 +25,7 @@ class lineCounter():
     def setLine(self, num):
         self.line = num
 
+# for switch/case stuff
 def switch(value: Any, comp: Callable[[Any, Any], bool]=operator.eq) -> Callable[[Any], bool]:
     return [lambda match: comp(match, value)]
 
