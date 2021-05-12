@@ -7,10 +7,15 @@ mem 2 to 3
 then the set 4 will create 2 errors, too many params, and memory out of range, only one will be selected, that would be the former
 */
 
+/* e */
+; e
+# e
+// e
+
 nop
 
 set 0m0 0x1
 set 0m1 0b10
-    set 0m2 3 ; this line tests comments and indentation
+    set 0m2 3 ; this line tests comments and line indentation removal
 
 set 0m4 0x1 0x1 0x1

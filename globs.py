@@ -31,7 +31,7 @@ def getType(val: str) -> int:
             else:
                 return types.STR
 
-def showError(line: int=0, op: str="", params: str=[], errorparamnum: Union[Iterable[int], int, None]=None, message: str="No message provided", add1toline: bool=True):
+def showError(line: int=0, op: str="", params: List[str]=[], errorparamnum: Union[Iterable[int], int, None]=None, message: str="No message provided", add1toline: bool=True):
     params.append(" ")
     if type(errorparamnum) == int or iter(errorparamnum):
         errorparamnum = list(errorparamnum)
@@ -41,6 +41,7 @@ def showError(line: int=0, op: str="", params: str=[], errorparamnum: Union[Iter
         itercnt = 0
         for i in params:
             err += f""" {fg("red")}{attr('underlined')}{i}{attr("reset")}""" if itercnt in errorparamnum else f" {i}"
+            itercnt += 1
 
         err += f"\n\n{message}"
 
@@ -58,10 +59,32 @@ Error line {line+add1toline}:
 
 def checkParams(line: int, op: str, oparg: List[str], minops: int=-1, maxops: int=-1) -> bool:
     if len(oparg) > maxops and maxops != -1:
-        showError(line=line, op=op, params=oparg, errorparamnum=range(minops, len(oparg)), message=f"Too many params")
+        showError(line=line, op=op, params=oparg, errorparamnum=range(minops, len(oparg)), message=f"Too many arguments")
         return False
     elif len(oparg) < minops and minops != -1:
-        showError(line=line, op=op, params=oparg, errorparamnum=None, message=f"Too few params")
+        showError(line=line, op=op, params=oparg, errorparamnum=None, message=f"Too few arguments")
         return False
     
     return True
+
+def getVal(mem: List[int], maxmem: int, line: int, op: str, oparg: List[str], opnum: int) -> int:
+    if getType(oparg[opnum]) in types.INT_TYPES:
+        return int(oparg[opnum], 0)
+    elif getType(oparg[opnum]) == types.MEM_LOC:
+        tmp = int(oparg[opnum].replace("m", "x"), 0)
+        if tmp < maxmem and tmp >= 0:
+            return mem[tmp]
+        else:
+            showError(line, op, oparg, opnum, f"Memory location \"{oparg[opnum]}\" is out of bounds")
+    else:
+        showError(line, op, oparg, opnum, f"Argument \"{oparg[opnum]}\" is not an integer or memory location.")
+
+def getMemLoc(maxmem: int, line: int, op: str, oparg: List[str], opnum: int):
+    if getType(oparg[opnum]) == types.MEM_LOC:
+        tmp = int(oparg[opnum].replace("m", "x"), 0)
+        if tmp < maxmem and tmp >= 0:
+            return tmp
+        else:
+            showError(line, op, oparg, opnum, f"Memory location \"{oparg[opnum]}\" is out of bounds")
+    else:
+        showError(line, op, oparg, opnum, f"Argument \"{oparg[opnum]}\" is not an integer or memory location.")
