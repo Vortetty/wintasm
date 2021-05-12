@@ -16,6 +16,13 @@ class typesClass():
 
 types = typesClass()
 
+class lineCounter():
+    def __init__(self):
+        self.line = 0
+
+    def setLine(self, num):
+        self.line = num
+
 def switch(value: Any, comp: Callable[[Any, Any], bool]=operator.eq) -> Callable[[Any], bool]:
     return [lambda match: comp(match, value)]
 
@@ -44,7 +51,7 @@ def showError(line: int=0, op: str="", params: List[str]=[], errorparamnum: Unio
         if not isIterable(errorparamnum):
             errorparamnum = [errorparamnum]
 
-        err = f"""Error line {line+add1toline}:\n    {op}"""
+        err = f"""Error line {line.line+add1toline}:\n    {op}"""
 
         itercnt = 0
         for i in params:
@@ -58,7 +65,7 @@ def showError(line: int=0, op: str="", params: List[str]=[], errorparamnum: Unio
     else:
         print(
             f"""
-Error line {line+add1toline}:
+Error line {line.line+add1toline}:
     {op} {" ".join(params)}
 
 {message}""".strip("\n")

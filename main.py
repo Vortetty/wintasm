@@ -54,22 +54,24 @@ f.close()
 #
 # Run file line-by-line, 
 # 
-line = 0
+lineCount = lineCounter()
 
 try:
-    while line < len(lines):
-        args = shlex.split(lines[line], posix=False)
+    while lineCount.line < len(lines):
+        args = shlex.split(lines[lineCount.line], posix=False)
 
-        if len(args) > 0 and not lines[line].strip(" ").startswith((";", "#", "//")):
+        print(lineCount.line, ":", lines[lineCount.line])
+
+        if len(args) > 0 and not lines[lineCount.line].strip(" ").startswith((";", "#", "//")):
             op = args.pop(0)
 
             op_func = ops[op]
 
-            result = op_func(memory, len(memory), line, op, args)
+            result = op_func(memory, len(memory), lineCount, op, args)
         else:
             pass
 
-        line += 1
+        lineCount.line += 1
 except BaseException as exception:
     if type(exception) != SystemExit:
         print("Please report the following exception on the github:\n   ", "".join(traceback.format_exception(type(exception), exception, exception.__traceback__)).replace("\n", "\n    "))

@@ -25,7 +25,7 @@ set 0m1 0b10
 set 0m2 3       
 xor 0m1 0m2 0m3 
 
-xor 0m1 0m2 0m2 
-jmpif 0m2 == 0 22 
+xor 0m2 0m3 0m3 
+jmpif 0m3 != 1 22 
 
 set 0m4 0x1 0x1 0x1 
