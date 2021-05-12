@@ -1,3 +1,12 @@
+#
+# Config vars
+#
+
+MEM_SIZE = 4
+
+#
+# Imports 
+#
 from globs import *
 import sys
 from typing import List, Dict, Callable
@@ -5,23 +14,26 @@ import shlex
 import traceback
 import re
 
-from ops import op_set
-#from ops import op_xor
-#from ops import op_jmpif
+from ops import ops_init
 
+#
+# Initialize possible instructions
+#
 ops: Dict[str, Callable[[List[int], int, int, str, List[str]], None]] = {
     "nop": lambda *x: None
 }
+ops_init.init(ops)
 
-op_set.init(ops)
-#op_xor.init(ops)
-#op_jmpif.init(ops)
+#
+# Initialize memory
+#
+memory = [0]*MEM_SIZE
 
-memory = [0]*4
-
+#
+# Make comments ignorable, then split file into lines, saves a version of this processed file as well
+#
 file = open(sys.argv[1], "r")
 
-# Read in file, remove comments on the ends of lines and mark others as comments, then split code into lines
 code = file.read()
 code = re.sub(r"""(?<=.)(?<!^)(;|\#|//)(?=([^"]*"[^"]*")*[^"]*$).*(?=\n)""", "", code)
 
@@ -35,11 +47,14 @@ for commentList in commentsTMP:
 
 lines = code.split("\n")
 
-line = 0
-
 f = open(sys.argv[1] + ".preprocessed", "w")
-f.write(code)
-f.close 
+f.write(";\n;\n; This file is for debugging purposes\n;\n;\n\n" + code)
+f.close()
+
+#
+# Run file line-by-line
+# 
+line = 0
 
 try:
     while line < len(lines):

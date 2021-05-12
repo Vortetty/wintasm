@@ -31,10 +31,15 @@ def getType(val: str) -> int:
             else:
                 return types.STR
 
+def isIterable(obj: Any):
+    return hasattr(obj, '__iter__')
+
 def showError(line: int=0, op: str="", params: List[str]=[], errorparamnum: Union[Iterable[int], int, None]=None, message: str="No message provided", add1toline: bool=True):
     params.append(" ")
-    if type(errorparamnum) == int or iter(errorparamnum):
-        errorparamnum = list(errorparamnum)
+    if type(errorparamnum) == int or isIterable(errorparamnum):
+
+        if not isIterable(errorparamnum):
+            errorparamnum = [errorparamnum]
 
         err = f"""Error line {line+add1toline}:\n    {op} """
 
