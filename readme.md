@@ -25,15 +25,7 @@
 
   - Note that block comments cannot begin on the same line as other code
 
-## Commands
-
-### NOP
-
-A simple no operation
-
-```arm
-nop
-```
+## Hard-Mode Commands (the bare minimum to run any calculatin with enough memory for said operation)
 
 ### SET
 
@@ -41,6 +33,41 @@ Set a location in memory
 
 ```arm
 set <memory location> <value>
+```
+
+### NAND
+
+NAND a value with another and store the result
+
+```arm
+nand <value 1> <value 2> <output memory location>
+```
+
+### JMPIF
+
+Jump if condition is true
+
+Valid operators are as follows
+
+- Equal to (`==`)
+- Not equal to (`!=`)
+- Greater than (`>`)
+- Less than (`<`)
+- Greater than or Equal to (`>=`)
+- Less than or Equal to (`<=`)
+
+```arm
+jmpif <value 1> <operator> <value 2> <line number to jump to>
+```
+
+## Other Commands (includes hard mode commands)
+
+### NOP
+
+A simple no operation
+
+```arm
+nop
 ```
 
 ### XOR
@@ -65,23 +92,6 @@ NOT a value with another and store the result
 
 ```arm
 not <value 1> <value 2> <output memory location>
-```
-
-### JMPIF
-
-Jump if condition is true
-
-Valid operators are as follows
-
-- Equal to (`==`)
-- Not equal to (`!=`)
-- Greater than (`>`)
-- Less than (`<`)
-- Greater than or Equal to (`>=`)
-- Less than or Equal to (`<=`)
-
-```arm
-jmpif <value 1> <operator> <value 2> <line number to jump to>
 ```
 
 ### DISP

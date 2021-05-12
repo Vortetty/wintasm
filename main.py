@@ -4,6 +4,8 @@
 
 MEM_SIZE = 4
 
+ENABLE_HARD_MODE = False
+
 #
 # Imports 
 #
@@ -22,7 +24,7 @@ from ops import ops_init
 ops: Dict[str, Callable[[List[int], int, int, str, List[str]], None]] = {
     "nop": lambda *x: None
 }
-ops_init.init(ops)
+ops_init.init(ops, ENABLE_HARD_MODE)
 
 #
 # Initialize memory
@@ -59,8 +61,6 @@ lineCount = lineCounter()
 try:
     while lineCount.line < len(lines):
         args = shlex.split(lines[lineCount.line], posix=False)
-
-        print(lineCount.line, ":", lines[lineCount.line])
 
         if len(args) > 0 and not lines[lineCount.line].strip(" ").startswith((";", "#", "//")):
             op = args.pop(0)
