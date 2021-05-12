@@ -26,7 +26,9 @@ class lineCounter():
 def switch(value: Any, comp: Callable[[Any, Any], bool]=operator.eq) -> Callable[[Any], bool]:
     return [lambda match: comp(match, value)]
 
-def getType(val: str) -> int:
+# A basic lexer, gets value of an object
+def getType(line: int, op: str, oparg: List[str], argnum: int) -> int:
+    val = oparg[argnum]
     for case in switch(val, lambda x, y:y.startswith(x)):
         if case("0m"):
             return types.MEM_LOC
@@ -39,12 +41,16 @@ def getType(val: str) -> int:
                 return types.DEC_INT
             elif val in types.OPERATORS:
                 return types.OPERATOR
-            else:
+            elif val[0] == "\"" and val[-1] == "\"":
                 return types.STR
+            else:
+                showError(line, op, oparg, argnum, f"Argument \"{val}\" is of an unknown type.")
 
+# Check if an object is iterable
 def isIterable(obj: Any):
     return hasattr(obj, '__iter__')
 
+# Show an error given parameters
 def showError(line: int=0, op: str="", params: List[str]=[], errorparamnum: Union[Iterable[int], int, None]=None, message: str="No message provided", add1toline: bool=True):
     params.append(" ")
     if type(errorparamnum) == int or isIterable(errorparamnum):
@@ -72,6 +78,7 @@ Error line {line.line+add1toline}:
         )
     exit()
 
+# Ensures there are the proper amount of paramaters
 def checkParams(line: int, op: str, oparg: List[str], minops: int=-1, maxops: int=-1) -> bool:
     if len(oparg) > maxops and maxops != -1:
         showError(line=line, op=op, params=oparg, errorparamnum=range(minops, len(oparg)), message=f"Too many arguments")
@@ -82,10 +89,11 @@ def checkParams(line: int, op: str, oparg: List[str], minops: int=-1, maxops: in
     
     return True
 
+# Gets a value
 def getVal(mem: List[int], maxmem: int, line: int, op: str, oparg: List[str], argnum: int) -> int:
-    if getType(oparg[argnum]) in types.INT_TYPES:
+    if getType(line, op, oparg, argnum) in types.INT_TYPES:
         return int(oparg[argnum], 0)
-    elif getType(oparg[argnum]) == types.MEM_LOC:
+    elif getType(line, op, oparg, argnum) == types.MEM_LOC:
         tmp = int(oparg[argnum].replace("m", "x"), 0)
         if tmp < maxmem and tmp >= 0:
             return mem[tmp]
@@ -94,8 +102,9 @@ def getVal(mem: List[int], maxmem: int, line: int, op: str, oparg: List[str], ar
     else:
         showError(line, op, oparg, argnum, f"Argument \"{oparg[argnum]}\" is not an integer or memory location.")
 
+# Gets a memory location
 def getMemLoc(maxmem: int, line: int, op: str, oparg: List[str], argnum: int):
-    if getType(oparg[argnum]) == types.MEM_LOC:
+    if getType(line, op, oparg, argnum) == types.MEM_LOC:
         tmp = int(oparg[argnum].replace("m", "x"), 0)
         if tmp < maxmem and tmp >= 0:
             return tmp
@@ -104,8 +113,9 @@ def getMemLoc(maxmem: int, line: int, op: str, oparg: List[str], argnum: int):
     else:
         showError(line, op, oparg, argnum, f"Argument \"{oparg[argnum]}\" is not an integer or memory location.")
 
+# Convert an operator to a function
 def getOperatorFunction(maxmem: int, line: int, op: str, oparg: List[str], argnum: int):
-    if getType(oparg[argnum]) == types.OPERATOR:
+    if getType(line, op, oparg, argnum) == types.OPERATOR:
         if oparg[argnum] == "==":
             return operator.eq
         elif oparg[argnum] == "!=":

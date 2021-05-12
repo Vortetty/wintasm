@@ -1,5 +1,5 @@
 from typing import List, Dict, Callable
-from globs import *
+from globs import lineCounter
 
 # Hard mode
 from ops.op_src import op_nand

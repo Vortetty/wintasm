@@ -1,0 +1,83 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "WintASM",
+	"patterns": [
+		{
+		  "include": "#templates"
+		},
+		{
+		  "include": "#comments"
+		},
+		{
+			"include": "#strings"
+		},
+		{
+		  "include": "#main"
+		},
+		{
+			"include": "#keywords"
+		}
+	],
+	"repository": {
+		"keywords": {
+			"patterns": [
+				{
+					"name": "keyword.control",
+					"match": "^\\s*([^ \\t]+).*?\\b"
+				}
+			]
+		},
+		"strings": {
+			"name": "string.quoted.double",
+			"begin": "\"",
+			"end": "\"",
+			"patterns": [
+				{
+					"name": "constant.character.escape",
+					"match": "\\\\."
+				}
+			]
+		},
+		"templates": {
+			"name": "markup.deleted",
+			"begin": "<",
+			"end": ">",
+			"patterns": [
+				{
+					"name": "invalid",
+					"match": "."
+				}
+			]
+		},
+		"comments": {
+			"name": "comment",
+			"begin": "/\\*",
+			"end": "\\*/"
+		},
+		"main": {
+			"patterns": [
+				{
+					"name": "variable.other.constant",
+					"match": "(?<=\\b0([xXmMbB]))[0-9a-fA-F]+\\b"
+				},
+				{
+					"name": "variable.other.constant",
+					"match": "\\b[0-9]+\\b"
+				},
+				{
+					"name": "variable.parameter",
+					"match": "\\b0[xXmMbB](?=[0-9a-fA-F]+\\b)"
+				},
+				{
+					"name": "comment",
+					"match": "(;|\\#|//)(?=([^\"]*\"[^\"]*\")*[^\"]*$).*$"
+				},
+				{
+					"name": "keyword.control",
+					"match": "(==|!=|>|<|>=|<=)"
+				}
+			]
+		}
+	},
+	"scopeName": "source.wintasm"
+}

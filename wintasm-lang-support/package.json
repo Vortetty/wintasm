@@ -1,0 +1,44 @@
+{
+    "name": "wintasm-lang-support",
+    "displayName": "WintASM Highlighting & Snippets",
+    "description": "Highlighting and snippets for the WintASM esolang",
+    "version": "1.2.0",
+    "publisher": "Vortetty",
+    "engines": {
+        "vscode": "^1.56.0"
+    },
+    "categories": [
+        "Programming Languages",
+        "Snippets"
+    ],
+    "contributes": {
+        "languages": [
+            {
+                "id": "wintasm",
+                "aliases": [
+                    "WintASM",
+                    "wintasm"
+                ],
+                "extensions": [
+                    ".wtsm",
+                    ".wtm",
+                    ".wt"
+                ],
+                "configuration": "./language-configuration.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "wintasm",
+                "scopeName": "source.wintasm",
+                "path": "./syntaxes/wintasm.tmLanguage.json"
+            }
+        ],
+        "snippets": [
+            {
+                "language": "wintasm",
+                "path": "./snippets/snippets.code-snippets"
+            }
+        ]
+    }
+}

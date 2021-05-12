@@ -1,0 +1,58 @@
+{
+	"No Operation": {
+		"prefix": "nop",
+		"body": [
+			"nop"
+		],
+		"description": "No Operation"
+	},
+	"Set": {
+		"prefix": "set",
+		"body": [
+			"set <memory location> <value>"
+		],
+		"description": "Set a memory location to a value"
+	},
+	"Xor": {
+		"prefix": "xor",
+		"body": [
+			"xor <value 1> <value 2> <output memory location>"
+		],
+		"description": "Xor 2 values into a spot in memory"
+	},
+	"Nand": {
+		"prefix": "nand",
+		"body": [
+			"nand <value 1> <value 2> <output memory location>"
+		],
+		"description": "Nand 2 values into a spot in memory"
+	},
+	"And": {
+		"prefix": "and",
+		"body": [
+			"and <value 1> <value 2> <output memory location>"
+		],
+		"description": "And 2 values into a spot in memory"
+	},
+	"Not": {
+		"prefix": "not",
+		"body": [
+			"not <value> <output memory location>"
+		],
+		"description": "Invert a value and store the result"
+	},
+	"Jump If": {
+		"prefix": "jmpif",
+		"body": [
+			"jmpif <value 1> <operator> <value 2> <line number to jump to>"
+		],
+		"description": "Jump if a condition is true"
+	},
+	"Display": {
+		"prefix": "disp",
+		"body": [
+			"disp <method> <mem location ...>"
+		],
+		"description": "Display values or memory locations in terminal"
+	}
+}
