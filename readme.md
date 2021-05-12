@@ -5,8 +5,9 @@
 - Memory locations are defined with a hex number after `0m`, an example for memory location 255 is `0mff`
 - Integers can be defined with the prefix `0b` for binary, `0x` for hex, or none for decimal
 - Char strings can be defined with `"` before and after the text
-- Values can be memory locations, or ints
+- Values can be memory locations or ints
 - Line numbering starts on 1
+- Memory locations can be any number, big or small
 - Multiple comment formats are supported, those being as follows:
 
     ```text
@@ -39,7 +40,7 @@ nop
 Set a location in memory
 
 ```arm
-xor <value 1> <output memory location>
+set <memory location> <value>
 ```
 
 ### XOR
