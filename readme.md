@@ -25,15 +25,7 @@
 
   - Note that block comments cannot begin on the same line as other code
 
-## Hard-Mode Commands (the bare minimum to run any calculatin with enough memory for said operation)
-
-### SET
-
-Set a location in memory
-
-```arm
-set <memory location> <value>
-```
+## Hard-Mode Commands (the bare minimum to run any calculation with enough memory for said operation)
 
 ### NAND
 
@@ -68,6 +60,14 @@ A simple no operation
 
 ```arm
 nop
+```
+
+### SET
+
+Set a location in memory
+
+```arm
+set <memory location> <value>
 ```
 
 ### XOR

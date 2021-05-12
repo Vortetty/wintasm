@@ -4,7 +4,7 @@
 
 MEM_SIZE = 4
 
-ENABLE_HARD_MODE = False
+ENABLE_HARD_MODE = False # Makes it a true esolang, only 2 availible operations, those are sufficient for any operation
 
 #
 # Imports 
