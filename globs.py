@@ -1,6 +1,6 @@
-from operator import eq
 from typing import Any, Callable, Union, Iterable, List
 from colored import fg, bg, attr
+import operator
 
 class typesClass():
     def __init__(self):
@@ -9,12 +9,14 @@ class typesClass():
         self.BIN_INT = 2
         self.DEC_INT = 3
         self.STR = 4
+        self.OPERATOR = 5
 
         self.INT_TYPES = [1, 2, 3]
+        self.OPERATORS = ["==", "!=", ">", "<", ">=", "<="]
 
 types = typesClass()
 
-def switch(value: Any, comp: Callable[[Any, Any], bool]=eq) -> Callable[[Any], bool]:
+def switch(value: Any, comp: Callable[[Any, Any], bool]=operator.eq) -> Callable[[Any], bool]:
     return [lambda match: comp(match, value)]
 
 def getType(val: str) -> int:
@@ -28,6 +30,8 @@ def getType(val: str) -> int:
         else:
             if val.isnumeric():
                 return types.DEC_INT
+            elif val in types.OPERATORS:
+                return types.OPERATOR
             else:
                 return types.STR
 
@@ -71,34 +75,43 @@ def checkParams(line: int, op: str, oparg: List[str], minops: int=-1, maxops: in
     
     return True
 
-def getVal(mem: List[int], maxmem: int, line: int, op: str, oparg: List[str], opnum: int) -> int:
-    if getType(oparg[opnum]) in types.INT_TYPES:
-        return int(oparg[opnum], 0)
-    elif getType(oparg[opnum]) == types.MEM_LOC:
-        tmp = int(oparg[opnum].replace("m", "x"), 0)
+def getVal(mem: List[int], maxmem: int, line: int, op: str, oparg: List[str], argnum: int) -> int:
+    if getType(oparg[argnum]) in types.INT_TYPES:
+        return int(oparg[argnum], 0)
+    elif getType(oparg[argnum]) == types.MEM_LOC:
+        tmp = int(oparg[argnum].replace("m", "x"), 0)
         if tmp < maxmem and tmp >= 0:
             return mem[tmp]
         else:
-            showError(line, op, oparg, opnum, f"Memory location \"{oparg[opnum]}\" is out of bounds")
+            showError(line, op, oparg, argnum, f"Memory location \"{oparg[argnum]}\" is out of bounds")
     else:
-        showError(line, op, oparg, opnum, f"Argument \"{oparg[opnum]}\" is not an integer or memory location.")
+        showError(line, op, oparg, argnum, f"Argument \"{oparg[argnum]}\" is not an integer or memory location.")
 
-def getMemLoc(maxmem: int, line: int, op: str, oparg: List[str], opnum: int):
-    if getType(oparg[opnum]) == types.MEM_LOC:
-        tmp = int(oparg[opnum].replace("m", "x"), 0)
+def getMemLoc(maxmem: int, line: int, op: str, oparg: List[str], argnum: int):
+    if getType(oparg[argnum]) == types.MEM_LOC:
+        tmp = int(oparg[argnum].replace("m", "x"), 0)
         if tmp < maxmem and tmp >= 0:
             return tmp
         else:
-            showError(line, op, oparg, opnum, f"Memory location \"{oparg[opnum]}\" is out of bounds")
+            showError(line, op, oparg, argnum, f"Memory location \"{oparg[argnum]}\" is out of bounds")
     else:
-        showError(line, op, oparg, opnum, f"Argument \"{oparg[opnum]}\" is not an integer or memory location.")
+        showError(line, op, oparg, argnum, f"Argument \"{oparg[argnum]}\" is not an integer or memory location.")
 
-def getOperatorFunction(maxmem: int, line: int, op: str, oparg: List[str], opnum: int):
-    if getType(oparg[opnum]) == types.MEM_LOC:
-        tmp = int(oparg[opnum].replace("m", "x"), 0)
-        if tmp < maxmem and tmp >= 0:
-            return tmp
+def getOperatorFunction(maxmem: int, line: int, op: str, oparg: List[str], argnum: int):
+    if getType(oparg[argnum]) == types.OPERATOR:
+        if oparg[argnum] == "==":
+            return operator.eq
+        elif oparg[argnum] == "!=":
+            return operator.ne
+        elif oparg[argnum] == ">":
+            return operator.gt
+        elif oparg[argnum] == "<":
+            return operator.lt
+        elif oparg[argnum] == ">=":
+            return operator.ge
+        elif oparg[argnum] == "<=":
+            return operator.le
         else:
-            showError(line, op, oparg, opnum, f"Memory location \"{oparg[opnum]}\" is out of bounds")
+            showError(line, op, oparg, argnum, f"Internal error processing argument \"{oparg[argnum]}\". Please report on the github and include full code") 
     else:
-        showError(line, op, oparg, opnum, f"Argument \"{oparg[opnum]}\" is not an integer or memory location.")
+        showError(line, op, oparg, argnum, f"Argument \"{oparg[argnum]}\" is not an operator.")

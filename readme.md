@@ -6,6 +6,7 @@
 - Integers can be defined with the prefix `0b` for binary, `0x` for hex, or none for decimal
 - Char strings can be defined with `"` before and after the text
 - Values can be memory locations, or ints
+- Line numbering starts on 1
 - Multiple comment formats are supported, those being as follows:
 
     ```text
