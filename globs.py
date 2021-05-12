@@ -37,11 +37,10 @@ def isIterable(obj: Any):
 def showError(line: int=0, op: str="", params: List[str]=[], errorparamnum: Union[Iterable[int], int, None]=None, message: str="No message provided", add1toline: bool=True):
     params.append(" ")
     if type(errorparamnum) == int or isIterable(errorparamnum):
-
         if not isIterable(errorparamnum):
             errorparamnum = [errorparamnum]
 
-        err = f"""Error line {line+add1toline}:\n    {op} """
+        err = f"""Error line {line+add1toline}:\n    {op}"""
 
         itercnt = 0
         for i in params:
@@ -85,6 +84,16 @@ def getVal(mem: List[int], maxmem: int, line: int, op: str, oparg: List[str], op
         showError(line, op, oparg, opnum, f"Argument \"{oparg[opnum]}\" is not an integer or memory location.")
 
 def getMemLoc(maxmem: int, line: int, op: str, oparg: List[str], opnum: int):
+    if getType(oparg[opnum]) == types.MEM_LOC:
+        tmp = int(oparg[opnum].replace("m", "x"), 0)
+        if tmp < maxmem and tmp >= 0:
+            return tmp
+        else:
+            showError(line, op, oparg, opnum, f"Memory location \"{oparg[opnum]}\" is out of bounds")
+    else:
+        showError(line, op, oparg, opnum, f"Argument \"{oparg[opnum]}\" is not an integer or memory location.")
+
+def getOperatorFunction(maxmem: int, line: int, op: str, oparg: List[str], opnum: int):
     if getType(oparg[opnum]) == types.MEM_LOC:
         tmp = int(oparg[opnum].replace("m", "x"), 0)
         if tmp < maxmem and tmp >= 0:

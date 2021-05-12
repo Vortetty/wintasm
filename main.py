@@ -30,12 +30,13 @@ ops_init.init(ops)
 memory = [0]*MEM_SIZE
 
 #
-# Make comments ignorable, then split file into lines, saves a version of this processed file as well
+# Make comments ignorable, then split file into lines, also saves a copy of the original lines to get comments from saves a version of this processed file as well
 #
 file = open(sys.argv[1], "r")
 
 code = file.read()
-code = re.sub(r"""(?<=.)(?<!^)(;|\#|//)(?=([^"]*"[^"]*")*[^"]*$).*(?=\n)""", "", code)
+origlines = code.split("\n")
+code = re.sub(r"""(?<=.)(?<!^)(;|\#|//)(?=([^"]*"[^"]*")*[^"]*$).*(?=(\n|$))""", "", code)
 
 commentsTMP = re.findall(r"""/\*.*?\*/""", code, re.MULTILINE | re.DOTALL)
 
@@ -52,7 +53,7 @@ f.write(";\n;\n; This file is for debugging purposes\n;\n;\n\n" + code)
 f.close()
 
 #
-# Run file line-by-line
+# Run file line-by-line, 
 # 
 line = 0
 
@@ -61,11 +62,18 @@ try:
         args = shlex.split(lines[line], posix=False)
 
         if len(args) > 0 and not lines[line].strip(" ").startswith((";", "#", "//")):
+            comments = re.findall(r"""(?<=.)(?<!^)(;|\#|//)(?=([^"]*"[^"]*")*[^"]*$).*(?=(\n|$))""", code)
+
+            comment = ""
+
+            for i in comments:
+                comment += "".join(i)
+
             op = args.pop(0)
 
             op_func = ops[op]
 
-            result = op_func(memory, len(memory), line, op, args)
+            result = op_func(memory, len(memory), line, op, args, comment)
         else:
             pass
 

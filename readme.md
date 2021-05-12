@@ -13,25 +13,15 @@
     i am a comment
     i cover many lines though
     */
-
-    code
     
     // i am a comment
-
-    code
     
     # i am a comment
 
-    code    
-
     ; i am a comment
-
-    "; i will not be treated as a comment since i'm in a string!"
-
-    ";" i also am not a comment since i start in a string
     ```
 
-    you can see the matches for this example [here](https://pythex.org/?regex=((%3B%7C%5C%23%7C%2F%2F)(%3F%3D(%5B%5E%22%5D*%22%5B%5E%22%5D*%22)*%5B%5E%22%5D*%24).*%7C%2F%5C*(%3F%3D(%5B%5E%22%5D*%22%5B%5E%22%5D*%22)*%5B%5E%22%5D*%24)(.%7C%5Cn)*%3F%5C*%2F(%3F%3D(%5B%5E%22%5D*%22%5B%5E%22%5D*%22)*%5B%5E%22%5D*%24))&test_string=%20%20%20%20%2F*%0A%20%20%20%20i%20am%20a%20comment%0A%20%20%20%20i%20cover%20many%20lines%20though%0A%20%20%20%20*%2F%0A%0A%20%20%20%20code%0A%20%20%20%20%0A%20%20%20%20%2F%2F%20i%20am%20a%20comment%0A%0A%20%20%20%20code%0A%20%20%20%20%0A%20%20%20%20%23%20i%20am%20a%20comment%0A%0A%20%20%20%20code%20%20%20%20%0A%0A%20%20%20%20%3B%20i%20am%20a%20comment%0A%0A%20%20%20%20%22%3B%20i%20will%20not%20be%20treated%20as%20a%20comment%20since%20i%27m%20in%20a%20string!%22%0A%0A%20%20%20%20%22%3B%22%20i%20also%20am%20not%20a%20comment%20since%20i%20start%20in%20a%20string&ignorecase=0&multiline=0&dotall=0&verbose=0)
+  - Note that block comments cannot begin on the same line as other code
 
 ## Commands
 
