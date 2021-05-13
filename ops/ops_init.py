@@ -2,6 +2,7 @@ from typing import List, Dict, Callable
 from globs import lineCounter
 
 # Hard mode
+from ops.op_src import op_set
 from ops.op_src import op_nand
 from ops.op_src import op_jmpif
 
@@ -10,6 +11,7 @@ import imp
 import os
 
 def init(ops: Dict[str, Callable[[List[int], int, lineCounter, str, List[str]], None]], ENABLE_HARD_MODE):
+    op_set.init(ops)                                                            # The bare minimum modules
     op_nand.init(ops)                                                            # The bare minimum modules
     op_jmpif.init(ops)                                                           # The bare minimum modules
 
