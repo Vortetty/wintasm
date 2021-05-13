@@ -52,14 +52,6 @@ Valid operators are as follows
 jmpif <value 1> <operator> <value 2> <line number to jump to>
 ```
 
-### SET
-
-Set a location in memory
-
-```arm
-set <memory location> <value>
-```
-
 ## Other Commands (includes hard mode commands)
 
 ### NOP
@@ -68,6 +60,14 @@ A simple no operation
 
 ```arm
 nop
+```
+
+### SET
+
+Set a location in memory
+
+```arm
+set <memory location> <value>
 ```
 
 ### XOR
