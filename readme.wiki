@@ -1,6 +1,51 @@
 = WintASM =
 
-== Commands ==
+== Basics ==
+
+<ul>
+<li><p>Memory locations are defined with a hex number after <code>0m</code>, an example for memory location 255 is <code>0mff</code></p></li>
+<li><p>Integers can be defined with the prefix <code>0b</code> for binary, <code>0x</code> for hex, or none for decimal</p></li>
+<li><p>Char strings can be defined with <code>&quot;</code> before and after the text</p></li>
+<li><p>Values can be memory locations or ints</p></li>
+<li><p>Line numbering starts on 1</p></li>
+<li><p>Memory locations can be any number, big or small</p></li>
+<li><p>Multiple comment formats are supported, those being as follows:</p>
+<syntaxhighlight lang="text">/*
+i am a comment
+i cover many lines though
+*/
+
+// i am a comment
+
+# i am a comment
+
+; i am a comment</syntaxhighlight>
+<ul>
+<li>Note that block comments cannot begin on the same line as other code</li></ul>
+</li></ul>
+
+== Hard-Mode Commands (the bare minimum to run any calculation with enough memory for said operation) ==
+
+=== NAND ===
+
+NAND a value with another and store the result
+
+<pre class="arm">nand &lt;value 1&gt; &lt;value 2&gt; &lt;output memory location&gt;</pre>
+=== JMPIF ===
+
+Jump if condition is true
+
+Valid operators are as follows
+
+* Equal to (<code>==</code>)
+* Not equal to (<code>!=</code>)
+* Greater than (<code>&gt;</code>)
+* Less than (<code>&lt;</code>)
+* Greater than or Equal to (<code>&gt;=</code>)
+* Less than or Equal to (<code>&lt;=</code>)
+
+<pre class="arm">jmpif &lt;value 1&gt; &lt;operator&gt; &lt;value 2&gt; &lt;line number to jump to&gt;</pre>
+== Other Commands (includes hard mode commands) ==
 
 === NOP ===
 
@@ -11,25 +56,35 @@ A simple no operation
 
 Set a location in memory
 
-<pre class="arm">xor &lt;value 1&gt; &lt;output memory location&gt;</pre>
+<pre class="arm">set &lt;memory location&gt; &lt;value&gt;</pre>
 === XOR ===
 
 XOR a value with another and store the result
 
 <pre class="arm">xor &lt;value 1&gt; &lt;value 2&gt; &lt;output memory location&gt;</pre>
-=== JMPIF ===
+=== AND ===
 
-Jump if, valid operators are as follows
+AND a value with another and store the result
 
-* Equal to (<code>==</code>)
-* Not equal to (<code>!=</code>)
-* Greater than (<code>&gt;</code>)
-* Less than (<code>&lt;</code>)
-* Greater than or Equal to (<code>&gt;=</code>)
-* Less than or Equal to (<code>&lt;=</code>)
+<pre class="arm">and &lt;value 1&gt; &lt;value 2&gt; &lt;output memory location&gt;</pre>
+=== NOT ===
 
-<pre class="arm">jmpif &lt;value 1&gt; &lt;operator&gt; &lt;value 2&gt; &lt;line number to jump to&gt;</pre>
+NOT a value with another and store the result
+
+<pre class="arm">not &lt;value 1&gt; &lt;value 2&gt; &lt;output memory location&gt;</pre>
+=== DISP ===
+
+Display values or memory locations in terminal
+
+Valid methods are as follows:
+
+* Chr (<code>0</code>)
+* Dec (<code>1</code>)
+* Hex (<code>2</code>)
+* Bin (<code>3</code>)
+
+<pre class="arm">disp &lt;method&gt; &lt;mem location ...&gt;</pre>
 == Notes for contributors ==
 
 * Make sure to convert this to a mediawiki format using [https://github.com/jgm/pandoc/releases/ pandoc] by running <code>pandoc -w mediawiki readme.md -o readme.wiki</code>
-* Update the page on [https://esolangs.ord esolangs.org]
+* Update the page on [https://esolangs.org/wiki/Main_Page esolangs.org]
