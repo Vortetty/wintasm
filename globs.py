@@ -108,7 +108,7 @@ def getVal(mem: List[int], maxmem: int, line: int, op: str, oparg: List[str], ar
 # Gets a string
 def getStr(mem: List[int], maxmem: int, line: int, op: str, oparg: List[str], argnum: int) -> int:
     if getType(line, op, oparg, argnum) == types.STR:
-        return oparg[argnum][1:-2]
+        return oparg[argnum][1:-1]
     else:
         showError(line, op, oparg, argnum, f"Argument \"{oparg[argnum]}\" is not a string.")
 
