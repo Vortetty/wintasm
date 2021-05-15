@@ -8,6 +8,3 @@ def op_not(mem: List[int], maxmem: int, line: lineCounter, op: str, oparg: List[
     loc = getMemLoc(maxmem, line, op, oparg, 1) # Get memory location to store
     
     mem[loc] = ~val1 # not val1
-
-def init(ops: Dict[str, Callable[[List[int], int, int, str, List[str]], None]]) -> None:
-    ops["noy"] = op_not

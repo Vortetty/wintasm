@@ -11,6 +11,3 @@ def op_jmpif(mem: List[int], maxmem: int, line: lineCounter, op: str, oparg: Lis
 
     if op_func(val1, val2):
         line.line = jmp_to-2
-
-def init(ops: Dict[str, Callable[[List[int], int, int, str, List[str]], None]]) -> None:
-    ops["jmpif"] = op_jmpif

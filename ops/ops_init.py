@@ -10,8 +10,8 @@ import imp
 import os
 
 def init(ops: Dict[str, Callable[[List[int], int, lineCounter, str, List[str]], None]], ENABLE_HARD_MODE):
-    op_nand.init(ops)                                                            # The bare minimum modules
-    op_jmpif.init(ops)                                                           # The bare minimum modules
+    ops["nand"] = op_nand.op_nand                                                # The bare minimum modules
+    ops["jmpif"] = op_jmpif.op_jmpif                                             # The bare minimum modules
 
     if not ENABLE_HARD_MODE:                                                     # Dont enable everything unless hard mode is off
         directory = "ops/op_src"                                                 # Directory that modules are stored in

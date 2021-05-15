@@ -1,0 +1,3 @@
+lodir ops ; Load the directory
+
+custom ; Run op_custom

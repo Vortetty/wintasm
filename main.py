@@ -15,6 +15,7 @@ from typing import List, Dict, Callable
 import shlex
 import traceback
 import re
+import os
 
 from ops import ops_init
 
@@ -27,9 +28,10 @@ ops: Dict[str, Callable[[List[int], int, int, str, List[str]], None]] = {
 ops_init.init(ops, ENABLE_HARD_MODE)
 
 #
-# Initialize memory
+# Initialize memory and other things
 #
 memory = [0]*MEM_SIZE
+interpreterDir = os.path.realpath(__file__)
 
 #
 # Make comments ignorable, then split file into lines, saves a version of this processed file as well
