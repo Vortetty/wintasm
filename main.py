@@ -67,7 +67,7 @@ try:
 
             op_func = ops[op]
 
-            result = op_func(memory, len(memory), lineCount, op, args)
+            result = op_func(memory, len(memory), lineCount, op, args, ops=ops)
         else:
             pass
 
