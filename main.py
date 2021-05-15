@@ -11,7 +11,7 @@ ENABLE_HARD_MODE = False # Makes it a true esolang, only 2 availible operations,
 #
 from globs import *
 import sys
-from typing import List, Dict, Callable
+from typing import List, Dict, Callable, Any
 import shlex
 import traceback
 import re
@@ -20,18 +20,19 @@ import os
 from ops import ops_init
 
 #
-# Initialize possible instructions
-#
-ops: Dict[str, Callable[[List[int], int, int, str, List[str]], None]] = {
-    "nop": lambda *x, **kwargs: None
-}
-ops_init.init(ops, ENABLE_HARD_MODE)
-
-#
 # Initialize memory and other things
 #
 memory = [0]*MEM_SIZE
-interpreterDir = os.path.realpath(__file__)
+interpreterDir = os.path.dirname(os.path.realpath(__file__))
+scriptDir = os.path.dirname(os.path.realpath(sys.argv[1]))
+
+#
+# Initialize possible instructions
+#
+ops: Dict[str, Callable[[List[int], int, int, str, List[str], Dict[str, Any]], None]] = {
+    "nop": lambda *x, **kwargs: None
+}
+ops_init.init(ops, ENABLE_HARD_MODE, interpreterDir)
 
 #
 # Make comments ignorable, then split file into lines, saves a version of this processed file as well
@@ -69,7 +70,7 @@ try:
 
             op_func = ops[op]
 
-            result = op_func(memory, len(memory), lineCount, op, args, ops=ops)
+            result = op_func(memory, len(memory), lineCount, op, args, ops=ops, interpreterDir=interpreterDir, scriptDir=scriptDir)
         else:
             pass
 

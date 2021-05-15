@@ -105,6 +105,13 @@ def getVal(mem: List[int], maxmem: int, line: int, op: str, oparg: List[str], ar
     else:
         showError(line, op, oparg, argnum, f"Argument \"{oparg[argnum]}\" is not an integer or memory location.")
 
+# Gets a string
+def getStr(mem: List[int], maxmem: int, line: int, op: str, oparg: List[str], argnum: int) -> int:
+    if getType(line, op, oparg, argnum) == types.STR:
+        return oparg[argnum][1:-2]
+    else:
+        showError(line, op, oparg, argnum, f"Argument \"{oparg[argnum]}\" is not a string.")
+
 # Gets a memory location
 def getMemLoc(maxmem: int, line: int, op: str, oparg: List[str], argnum: int):
     if getType(line, op, oparg, argnum) == types.MEM_LOC:

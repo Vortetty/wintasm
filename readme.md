@@ -109,6 +109,14 @@ Valid methods are as follows:
 disp <method> <mem location ...>
 ```
 
+### LODIR
+
+Load all pmodules from a directory, it must contain files named like `op_<module name>.py`, each module must contain a function with the same name as the file matching the python type `Callable[[List[int], int, int, str, List[str], Dict[str, Any]], None]`
+
+```arm
+lodir <string with directory>
+```
+
 ## Notes for contributors
 
 - Make sure to convert this to a mediawiki format using [pandoc](https://github.com/jgm/pandoc/releases/) by running `pandoc -w mediawiki readme.md -o readme.wiki`

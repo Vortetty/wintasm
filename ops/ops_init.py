@@ -9,12 +9,12 @@ from ops.op_src import op_jmpif
 import imp
 import os
 
-def init(ops: Dict[str, Callable[[List[int], int, lineCounter, str, List[str]], None]], ENABLE_HARD_MODE):
+def init(ops: Dict[str, Callable[[List[int], int, lineCounter, str, List[str]], None]], ENABLE_HARD_MODE, INTERPRETER_DIR):
     ops["nand"] = op_nand.op_nand                                                # The bare minimum modules
     ops["jmpif"] = op_jmpif.op_jmpif                                             # The bare minimum modules
 
     if not ENABLE_HARD_MODE:                                                     # Dont enable everything unless hard mode is off
-        directory = "ops/op_src"                                                 # Directory that modules are stored in
+        directory = os.path.join(INTERPRETER_DIR, "ops/op_src")                  # Directory that modules are stored in
 
         list_modules=os.listdir(directory)                                       # Get a list of available modules
         for module_name in list_modules:                                         # Iterate modules
