@@ -1,3 +1,9 @@
+;
+;
+; This file is for debugging purposes
+;
+;
+
 #
 # Config vars
 #
@@ -23,7 +29,7 @@ from ops import ops_init
 # Initialize possible instructions
 #
 ops: Dict[str, Callable[[List[int], int, int, str, List[str]], None]] = {
-    "nop": lambda *x, **kwargs: None
+    "nop": lambda *x: None
 }
 ops_init.init(ops, ENABLE_HARD_MODE)
 
@@ -39,7 +45,7 @@ interpreterDir = os.path.realpath(__file__)
 file = open(sys.argv[1], "r")
 
 code = file.read()
-code = re.sub(r"""(?<=.)(?<!^)(;|\#|//)(?=([^"]*"[^"]*")*[^"]*$).*(?=(\n|$))""", "", code)
+code = re.sub(r"""(?<=.)(?<!^)(
 
 commentsTMP = re.findall(r"""/\*.*?\*/""", code, re.MULTILINE | re.DOTALL)
 
